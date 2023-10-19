@@ -162,8 +162,9 @@ paper.on("element:pointerclick", function (elementView) {
 
       // Cambiar el color del borde a verde para el elemento completo
       elementView.vel.findOne("path").attr({
-        stroke: "#10FB06",
-        "stroke-width": 1, // Ajusta el ancho del trazo según tus preferencias
+        stroke: "rgba(238, 251, 0, 1)",
+        "stroke-width": 2, // Ajusta el ancho del trazo según tus preferencias
+        "stroke-linecap": "round", 
       });
     } else {
      
@@ -198,6 +199,7 @@ console.log(selectedElements.length)
 let isContextMenuOpen = false; 
 
 paper.on("element:contextmenu", function (elementView, event) {
+
   var element = elementView.model.attributes.type;
   console.log("Elemento clicado:", element);
   if (element === "stage") {
@@ -207,3 +209,7 @@ paper.on("element:contextmenu", function (elementView, event) {
     console.log('no se encontró el elemento');
   }
 });
+
+function validation_stages_and_groups (){
+  
+}

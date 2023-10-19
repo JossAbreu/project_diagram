@@ -33,18 +33,18 @@ paper.el.addEventListener("drop", function (event) {
       type: "stage",
       attrs: {
         body: {
-          fill: "#0F0F0F",
-          rx: 10, // Radio de borde horizontal
-          ry: 10, // Radio de borde vertical
+          fill: "#10FB06",
+          // rx: 10, // Radio de borde horizontal
+          // ry: 10, // Radio de borde vertical
         },
-        label: { text: text, fill: "white", fontsize: 10 },
+        label: { text: text, fill: "black", fontsize: 15 },
       },
     });
 
     rect.addTo(graph);
 
     var boundaryTool = new joint.elementTools.Boundary({
-      padding: 20,
+      padding: 10,
       rotate: true,
       useModelGeometry: true,
     });
@@ -157,7 +157,7 @@ paper.el.addEventListener("drop", function (event) {
     rect.addTo(graph);
 
     var boundaryTool = new joint.elementTools.Boundary({
-      padding: 20,
+      padding: 10,
       rotate: true,
       useModelGeometry: true,
     });
@@ -244,24 +244,24 @@ paper.el.addEventListener("drop", function (event) {
 
     if (type === "stages") {
       div.classList.add(
-        "bg-neutral-900",
-        "text-center",
-        "px-10",
-        "py-1",
-        "select-none",
-        "flex",
-        "items-center",
-        "justify-center",
-        "cursor-pointer",
-        "hover:bg-accent-base",
-        "rounded-xl",
-        "transition",
-        "ease-in-out",
-        "hover:text-black",
-        "ring-2",
-        "ring-dark-surface_4",
-        "text-md",
-        "hover:scale-105"
+        'bg-accent-base',
+        'text-center',
+        'px-10',
+        'py-1',
+        'select-none',
+        'flex',
+        'items-center',
+        'justify-center',
+        'cursor-pointer',
+        'hover:bg-accent-base',
+        'text-black',
+        'transition',
+        'ease-in-out',
+        'hover:text-black',
+        'ring-2',
+        'ring-dark-surface_4',
+        'text-md',
+        'hover:scale-105'
       );
 
       // Obtener el contenedor donde se agregarán los elementos de menú

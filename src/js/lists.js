@@ -1,7 +1,37 @@
 const apiUrl = 'http://gizmo.local/api/test/stages'; // Reemplaza esto con la URL correcta
 
 
-const stagesList = []
+// const stagesList = []
+
+// axios.get(apiUrl)
+//   .then((response) => {
+//     stagesList.splice(0)
+//     response.data.slice(0, 10)
+//     stagesList.push(...(response.data.slice(0, 10)))
+//     stagesList = response.data;
+   
+//     renderStages(stagesList)
+
+//   })
+//   .catch((error) => {
+//     console.error('Error al obtener la lista de transiciones:', error);
+//   });
+
+
+
+
+   // Obtener el contenedor donde se agregarán los elementos
+   const container_stages = document.getElementById('stagesContainer');
+  
+
+
+const stagesList = [
+  {id: 1 ,text:"stage 1", type: "stages"},
+  {id: 2 ,text:"stage 2", type: "stages"},
+  {id: 3 ,text:"stage 3", type: "stages"},
+  {id: 4 ,text:"stage 4", type: "stages"},
+  {id: 5 ,text:"stage 5", type: "stages"},
+  {id: 6 ,text:"stage 6", type: "stages"}]
 
 const renderStages =  (stagesList) => {
     // Crear y agregar los elementos <div> basados en el array
@@ -9,7 +39,7 @@ const renderStages =  (stagesList) => {
       const div = document.createElement('div');
       div.id = stage.id;
       div.classList.add(
-        'bg-neutral-900',
+        'bg-accent-base',
         'text-center',
         'px-10',
         'py-1',
@@ -19,7 +49,7 @@ const renderStages =  (stagesList) => {
         'justify-center',
         'cursor-pointer',
         'hover:bg-accent-base',
-        'rounded-xl',
+        'text-black',
         'transition',
         'ease-in-out',
         'hover:text-black',
@@ -34,28 +64,9 @@ const renderStages =  (stagesList) => {
       container_stages.appendChild(div);
     });
 }
-axios.get(apiUrl)
-  .then((response) => {
-    stagesList.splice(0)
-    // response.data.slice(0, 10)
-    stagesList.push(...(response.data.slice(0, 10)))
-    //stagesList = response.data;
-   
-    renderStages(stagesList)
 
-  })
-  .catch((error) => {
-    console.error('Error al obtener la lista de transiciones:', error);
-  });
-
-
-
-
-   // Obtener el contenedor donde se agregarán los elementos
-   const container_stages = document.getElementById('stagesContainer');
   
-  
-  
+renderStages(stagesList);
 
 // #############################################################
 
@@ -64,8 +75,35 @@ axios.get(apiUrl)
 
 const apiUrl_groups = 'http://gizmo.local/api/test/groups'; // Reemplaza esto con la URL correcta
 
+// const groupsList = []
+// axios.get(apiUrl_groups)
+//   .then((response) => {
+//     groupsList.splice(0)
+//     // response.data.slice(0, 10)
+//     groupsList.push(...(response.data.slice(0, 10)))
+  
+   
+//     renderGroups(groupsList)
 
-const groupsList = []
+//   })
+//   .catch((error) => {
+//     console.error('Error al obtener la lista de grupos:', error);
+//   });
+
+     // Obtener el contenedor donde se agregarán los elementos
+     const container_groups_panel = document.getElementById('groupsContainer_panel');
+     const container_groups_workspace = document.getElementById('groupsContainer_workspace');
+
+
+     const groupsList = [
+      {id: 1 ,text:"group 1", type: "groups"},
+      {id: 2 ,text:"group 2", type: "groups"},
+      {id: 3 ,text:"group 3", type: "groups"},
+      {id: 4 ,text:"group 4", type: "groups"},
+      {id: 5 ,text:"group 5", type: "groups"},
+      {id: 6 ,text:"group 6", type: "groups"}]
+
+   
 
 const renderGroups =  (groupsList) => {
     // Crear y agregar los elementos <div> basados en el array
@@ -100,21 +138,7 @@ const renderGroups =  (groupsList) => {
       container_groups_workspace.appendChild(divCopy);
     });
 }
-axios.get(apiUrl_groups)
-  .then((response) => {
-    groupsList.splice(0)
-    // response.data.slice(0, 10)
-    groupsList.push(...(response.data.slice(0, 10)))
-  
-   
-    renderGroups(groupsList)
 
-  })
-  .catch((error) => {
-    console.error('Error al obtener la lista de grupos:', error);
-  });
 
-     // Obtener el contenedor donde se agregarán los elementos
-     const container_groups_panel = document.getElementById('groupsContainer_panel');
-     const container_groups_workspace = document.getElementById('groupsContainer_workspace');
+renderGroups(groupsList);
      

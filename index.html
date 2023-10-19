@@ -1,0 +1,183 @@
+﻿<html
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+  <head>
+    <title>Hytech drawer</title>
+
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css"
+    />
+    <link type="text/css" rel="stylesheet" href="./src/css/application.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+<style>
+  .selected-element {
+  stroke: rgb(165, 4, 4); /* Cambia el color del borde a verde */
+  stroke-width: 2; /* Ancho del borde */
+}
+</style>
+  </head>
+
+  <body id="container">
+    <div
+      class="w-screen h-screen bg-neutral-950 flex justify-center overflow-hidden"
+    >
+      <section
+        id="content"
+        class="bg-neutral-900 min-w-full max-h-full grid grid-cols-2-cols-layout-drawer gap-1"
+      >
+        <div
+          id="panel"
+          class="bg-neutral-900 shadow-md grid grid-rows-2-rows-layout-drawer gap-1 py"
+        >
+          <div class="bg-neutral-800 py-3 flex items-center justify-center">
+            <img
+              src="src/images/img1.png"
+              alt="img_logo_hytech"
+              class="object-fill w-36 h-16"
+            />
+          </div>
+          <div
+            class="bg-neutral-800 px-3 py-2 flex flex-col divide-y-[1.5px] divide-gray-950 gap-2"
+          >
+            <div class="flex flex-col gap-2">
+              <div
+                class="mt-1 flex focus-within:ring-2 focus-within:ring-accent-base rounded-md"
+              >
+                <i
+                  class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 bg-dark-surface_3 rounded-l-md border-r-2 border-dark-surface_1"
+                  >Search</i
+                >
+                <input
+                  type="text"
+                  placeholder="Search "
+                  class="shadow-sm outline-none text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm rounded-md rounded-l-none h-[40px] bg-dark-surface_3 p-1"
+                />
+              </div>
+            </div>
+
+            <div class="w-full h-full">
+              <div
+                class="flex flex-col rounded-md px-2 select-none relative top-1 gap-2"
+              >
+                <h1 class="text-white text-lg flex text-center items-center gap-3">
+                  Add element
+                  <span class="material-symbols-outlined text-xl">
+                    jump_to_element
+                  </span>
+                </h1>
+
+                <div
+                  id="navigation"
+                  class="flex flex-col gap-3 items-center relative text-white"
+                >
+                  <div class="tab bg-dark-surface_4 py-2 px-2 rounded-md">
+                    <button
+                      id="defaultOpen"
+                      class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base  focus:bg-accent-base rounded-md focus:text-black hover:text-black"
+                      onclick="openTabs(event, 'stages')"
+                    >
+                      Stages
+                    </button>
+                    <button
+                      class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base  focus:bg-accent-base rounded-md focus:text-black hover:text-black"
+                      onclick="openTabs(event, 'groups')"
+                    >
+                      Groups 
+                    </button>
+                    <button
+                      class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base  focus:bg-accent-base rounded-md focus:text-black hover:text-black"
+                      onclick="openTabs(event, 'Task')"
+                    >
+                   Task
+                    </button>
+                  </div>
+                  <!-- Tab content -->
+                  <div
+                    id="stages"
+                    class="hidden max-h-[750px] overflow-y-auto overflow-x-hidden"
+                  >
+                    <div class="flex flex-col gap-3" id="stagesContainer">
+                     
+                    </div>
+                  </div>
+
+                  <div id="groups" class="hidden">
+                    <div class="flex flex-col gap-3 " id="groupsContainer_panel"></div>
+                  </div>
+
+                  <div id="Task" class="hidden">
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-900 grid grid-rows-2-rows-layout-drawer gap-1">
+          <div class="bg-neutral-800 flex items-end justify-between px-8 py-3">
+            <div class="text-white flex gap-2 font-light select-none">
+              <div id="toolbar-container" class="flex gap-3">
+                <button id="zoom-in" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white ">add</button>
+                <button id="zoom-out" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">check_indeterminate_small</button>
+                <button id="fullscreen" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">zoom_out_map</button>
+                <button id="conection_btn" onclick="createLinkBetweenSelectedElements()" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white hidden">share</button>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="bg-neutral-800 h-[100%] w-[100%] relative p-1 relative">
+            <div
+              id="work_space"
+              class="h-[100%] bg-neutral-900 w-[100%] overflow-hidden"
+            ></div>
+          </div>
+          <div
+            id="modal_addTag"
+            class="hidden select-none bg-neutral-600 ring-1 gap-4 ring-accent-base rounded-md px-3 py-4 flex flex-col absolute "
+          >
+            <div class="flex justify-between text-white ">
+              <h1 class="flex items-center font-semibold gap-2">Add group  <span class="material-symbols-outlined text-accent-base">groups</span> </h1>
+              <button
+                onclick="closeModal()"
+                class="flex items-center hover:text-accent-base relative bottom-2"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <div class="flex flex-col gap-3 py-2 text-white " id="groupsContainer_workspace"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.js"></script>
+ 
+    <script src="src/js/paper.js"></script>
+    <script src="src/js/tailwind.js"></script>
+    <script src="src/js/toolbar.js"></script>
+    <script src="src/js/drag-and-drop.js"></script>
+    <script src="src/js/tabs.js"></script>
+    <script src="src/js/lists.js"></script>
+    <script src="src/js/context_menu.js"></script>
+  
+  </body>
+</html>

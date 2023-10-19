@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+font-family: Verdana, Geneva, Tahoma, sans-serif, Courier, monospace;
+background-color: rgba(255, 255, 255, 0.2);
+
+}
+
+#menu {
+    width: 150px;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.active{
+    background-color: #10FB06 !important;
+    color: black;
+}

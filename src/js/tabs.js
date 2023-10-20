@@ -1,5 +1,6 @@
 
   function openTabs(evt, option) {
+    isPanelmenu = true;
   // Declare all variables
   var i, hidden, tablinks ;
 

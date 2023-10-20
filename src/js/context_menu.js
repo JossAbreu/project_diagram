@@ -1,5 +1,6 @@
 // Función para abrir el menú contextual
 function openMenucontext(event) {
+
   const menu = document.getElementById('modal_addTag');
   menu.style.left = `${event.pageX}px`;
   menu.style.top = `${event.pageY}px`;
@@ -11,6 +12,8 @@ function closeMenuContext() {
   const menu = document.getElementById('modal_addTag');
   menu.style.display = "none";
   isContextMenuOpen = false; // Marcar que el menú está cerrado
+
+
 }
 
 // Escuchar clics en cualquier lugar de la página

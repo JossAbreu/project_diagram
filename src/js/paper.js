@@ -19,7 +19,8 @@ var targetArrowheadTool = new joint.linkTools.TargetArrowhead();
 var sourceAnchorTool = new joint.linkTools.SourceAnchor();
 var targetAnchorTool = new joint.linkTools.TargetAnchor();
 var boundaryTool = new joint.linkTools.Boundary();
-
+var isContextmenu = false;
+isPanelmenu= false;
 var removeButton = new joint.linkTools.Remove({
   distance: 20,
 });
@@ -46,7 +47,7 @@ function createLinkBetweenSelectedElements() {
     var targetElement = selectedElements[1];
     var link_from = sourceElement.attributes.attrs.label.text
     var link_to = targetElement.attributes.attrs.label.text
-    console.log(link_from);
+   
     var link = new joint.shapes.standard.Link({
       attrs: {
         line: {
@@ -142,18 +143,80 @@ function createLinkBetweenSelectedElements() {
 }
 
 
-
 var selectedElements = [];
 
 paper.on("element:pointerclick", function (elementView) {
   var element = elementView.model;
 
   var conection_btn = document.querySelector('#conection_btn');
-  console.log(conection_btn);
+
+  if (selectedElements.includes(element)) {
+    // Si el elemento ya está en la lista de seleccionados, quítalo
+    selectedElements = selectedElements.filter(
+      (selectedElement) => selectedElement !== element
+    );
+    elementView.unhighlight();
+  } else {
+    if (selectedElements.length < 2) {
+      conection_btn.style.display = 'block';
+      // Agrega el elemento a la lista de seleccionados
+      selectedElements.push(element);
+      console.log(selectedElements)
+      elementView.highlight();
+      var pathElement = elementView.vel.findOne("path");
+      if (pathElement) {
+        pathElement.attr({
+          stroke: "rgba(238, 251, 0, 1)",
+          "stroke-width": 2,
+          "stroke-linecap": "round",
+        });
+      }
+    }
+  }
+});
+
+paper.on("blank:pointerdown", function (evt, x, y) {
+  isContextmenu = false;
+  isPanelmenu = true;
+  // Deselecciona todos los elementos al hacer clic en un área en blanco
+  selectedElements.forEach(function (selectedElement) {
+    var elementView = paper.findViewByModel(selectedElement);
+    if (elementView) {
+      elementView.unhighlight();
+      var pathElement = elementView.vel.findOne("path");
+      if (pathElement) {
+        pathElement.attr({
+          stroke: "tu-estilo-de-borde-regular", // Reemplaza por tu estilo de borde regular
+          "stroke-width": "tu-ancho-de-borde-regular", // Reemplaza por tu ancho de borde regular
+          "stroke-linecap": "round",
+        });
+      }
+    }
+  });
+
+  // Limpia la lista de elementos seleccionados
+  selectedElements = [];
+});
+
+
+let isContextMenuOpen = false; 
+
+paper.on("element:contextmenu", function (elementView, event) {
+  isContextmenu = true;
+  isPanelmenu = false;
+  var element = elementView.model;
+  console.log("Elemento clicado:", element);
+  if (element.attributes.type === "stage") {
+    openMenucontext(event);
+    isContextMenuOpen = true; // Marcar que el menú está abierto
+  } else {
+    console.log('no se encontró el elemento');
+  }
 
 
 
-  if (selectedElements.length < 2) {
+
+  if (selectedElements.length < 2 && element.attributes.type === "stage") {
     conection_btn.style.display = 'block';
     // Si el elemento no está en la lista de seleccionados, agrégalo
     if (!selectedElements.includes(element)) {
@@ -179,35 +242,9 @@ paper.on("element:pointerclick", function (elementView) {
 
 
 
-});
 
 
- 
 
-paper.on("blank:pointerdown", function (evt, x, y) {
-  
-console.log(selectedElements.length)
-
-  // Itera a través de todos los enlaces en el gráfico y oculta sus herramientas.
-  graph.getLinks().forEach(function (link) {
-    var linkView = paper.findViewByModel(link);
-    if (linkView) {
-      linkView.hideTools();
-    }
-  });
-});
-let isContextMenuOpen = false; 
-
-paper.on("element:contextmenu", function (elementView, event) {
-
-  var element = elementView.model.attributes.type;
-  console.log("Elemento clicado:", element);
-  if (element === "stage") {
-    openMenucontext(event);
-    isContextMenuOpen = true; // Marcar que el menú está abierto
-  } else {
-    console.log('no se encontró el elemento');
-  }
 });
 
 function validation_stages_and_groups (){

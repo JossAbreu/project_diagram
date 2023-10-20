@@ -5,6 +5,7 @@ paper.el.addEventListener("dragover", function (event) {
 
 paper.el.addEventListener("drop", function (event) {
   event.preventDefault();
+
   var id = event.dataTransfer.getData("id");
   var text = event.dataTransfer.getData("text");
   var type = event.dataTransfer.getData("type");
@@ -124,7 +125,7 @@ paper.el.addEventListener("drop", function (event) {
     }
   }
 
-  if (type === "groups") {
+  if (type === "groups" && isPanelmenu ) {
     // Crear un elemento de texto invisible para medir su tamaño
     var textElement = document.createElement("span");
     textElement.textContent = text;
@@ -219,6 +220,7 @@ paper.el.addEventListener("drop", function (event) {
     });
 
     paper.on("blank:pointerdown", function () {
+   
       elementView.hideTools();
       var conection_btn = document.querySelector("#conection_btn");
       conection_btn.style.display = "none";
@@ -228,8 +230,132 @@ paper.el.addEventListener("drop", function (event) {
         (selectedElements = [])
       );
     });
+   
   }
 
+  // funcion para conectar un grupo con stage desde el contextmenu
+
+  if (type === "groups" && isContextmenu) {
+     
+    // Crear un elemento de texto invisible para medir su tamaño
+    var textElement = document.createElement("span");
+    textElement.textContent = text;
+    textElement.style.visibility = "hidden";
+    textElement.style.position = "absolute";
+    document.body.appendChild(textElement);
+
+    // Obtener el ancho y el alto del texto
+    var textWidth = textElement.offsetWidth;
+    var textHeight = textElement.offsetHeight;
+
+    // Eliminar el elemento de texto invisible
+    document.body.removeChild(textElement);
+
+    // Crear un rectángulo con el mismo ancho y alto que el texto
+    var rect = new joint.shapes.standard.Rectangle({
+      position: { x: x, y: y },
+      size: { width: textWidth, height: textHeight + 20 },
+      type: "groups",
+      attrs: {
+        body: {
+          fill: "#0F0F0F",
+          rx: 10, // Radio de borde horizontal
+          ry: 10, // Radio de borde vertical
+        },
+        label: { text: text, fill: "white", fontsize: 10 },
+      },
+    });
+
+    rect.addTo(graph);
+  
+
+    selectedElements.push(rect) 
+   console.log(selectedElements)
+    var boundaryTool = new joint.elementTools.Boundary({
+      padding: 10,
+      rotate: true,
+      useModelGeometry: true,
+    });
+
+    var removeButton = new joint.elementTools.Remove({
+      focusOpacity: 0.5,
+      rotate: true,
+      useModelGeometry: true,
+      action: function (evt) {
+        Swal.fire({
+          title: "Are you sure to delete the element? ",
+          html: `<span class="text-accent-base font-bold">${text}  </span> `,
+          showCancelButton: true,
+          confirmButtonText: "remove ",
+          allowOutsideClick: false,
+          background: "#141414",
+          border: "solid 2px red",
+          customClass: {
+            container: "#141414",
+            cancelButton:
+              "bg-neutral-800 px-3 py-1 hover:bg-neutral-950  hover:text-white ml-3 rounded-md text-white",
+            confirmButton:
+              "bg-red-500 px-3 py-1 hover:bg-red-700 hover:text-white mr-3  rounded-md text-black",
+            title: "text-xl text-white", // Clase personalizada para el título
+            text: "text-white",
+          },
+          buttonsStyling: false,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            this.model.remove();
+            Swal.fire({
+              icon: "success",
+              html: `<span class="text-white font-bold"> Element <span class="text-accent-base ">${text} </span> removed!</span> `,
+              showCancelButton: false,
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              background: "#141414",
+              border: "solid 2px red",
+              timer: 1200,
+            });
+        
+            selectedElements = [];
+          }
+        });
+      },
+    });
+
+    var toolsView = new joint.dia.ToolsView({
+      tools: [boundaryTool, removeButton],
+    });
+
+    var elementView = rect.findView(paper);
+    elementView.addTools(toolsView);
+    elementView.hideTools();
+
+    paper.on("element:pointerdown", function (elementView) {
+      elementView.showTools();
+    });
+
+    paper.on("blank:pointerdown", function () {
+     
+      
+      elementView.hideTools();
+      var conection_btn = document.querySelector("#conection_btn");
+      conection_btn.style.display = "none";
+      // Al hacer clic en el área en blanco (fuera de los elementos), deseleccionar elementos
+      selectedElements.forEach(
+        (element) => element.findView(paper).unhighlight(),
+        (selectedElements = [])
+      );
+    
+    });
+
+    isContextmenu = false;
+    isPanelmenu = true;
+  createLinkBetweenSelectedElements();
+  }
+
+  // #######################
+
+
+  
   function addElementBackToMenuAndList(text, id, type) {
     // Crear un nuevo elemento <div> basado en el texto y el id
     const div = document.createElement("div");

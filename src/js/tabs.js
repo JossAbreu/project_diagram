@@ -1,26 +1,23 @@
-
-  function openTabs(evt, option) {
-    isPanelmenu = true;
-  // Declare all variables
-  var i, hidden, tablinks ;
-
-  // Get all elements with class="hidden" and hide them
-  hidden = document.getElementsByClassName("hidden");
-  for (i = 0; i < hidden.length; i++) {
-    hidden[i].style.display = "none";
+function updateTab(tabValue) {
+  isPanelmenu = true;
+  // Ocultar todas las pestañas
+  var tabs = document.getElementsByClassName("hidden");
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].style.display = "none";
   }
 
-  // Get all elements with class="tablinks " and remove the class "active"
-  tablinks  = document.getElementsByClassName("tablinks ");
-  for (i = 0; i < tablinks .length; i++) {
-    tablinks [i].className = tablinks [i].className.replace(" active", "");
+  // Quitar la clase "active" de todos los botones de pestañas
+  var tabButtons = document.getElementsByClassName("tablinks");
+  for (var i = 0; i < tabButtons.length; i++) {
+    tabButtons[i].classList.remove("active");
   }
 
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(option).style.display = "block";
-  evt.currentTarget.className += " active";
+  // Mostrar la pestaña seleccionada y marcar el botón correspondiente
+  document.getElementById(tabValue).style.display = "flex";
+  document.querySelector(`[data-tab="${tabValue}"]`).classList.add("active");
+
+  // Actualizar la selección en el <select>
+  document.getElementById("tabs_select").value = tabValue;
 }
+document.getElementById("default_open").click();
 
-
-  // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();

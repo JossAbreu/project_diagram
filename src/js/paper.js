@@ -42,95 +42,141 @@ function createLinkBetweenSelectedElements() {
   var conection_btn = document.querySelector('#conection_btn');
   conection_btn.style.display = 'none';
   if (selectedElements.length === 2) {
-   
     var sourceElement = selectedElements[0];
     var targetElement = selectedElements[1];
-    var link_from = sourceElement.attributes.attrs.label.text
-    var link_to = targetElement.attributes.attrs.label.text
-   
-    var link = new joint.shapes.standard.Link({
-      attrs: {
-        line: {
-          strokeDasharray: '5 5',
-          strokeDashoffset: 7.5,
-          stroke: "#10FB06",
-          "stroke-width": 2,
-          
+    var link_from = sourceElement.attributes.attrs.label.text;
+    var link_to = targetElement.attributes.attrs.label.text;
+
+    if(sourceElement.attributes.type === targetElement.attributes.type){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        html: `<span class="text-accent-base"> Cannot connect two stages</span> `,
+        showConfirmButton: true,
+        allowOutsideClick: false,
+        background:  '#141414',
+        border: 'solid 2px red',
+        customClass: {
+          container: '#141414',
+          cancelButton: 'bg-neutral-800 px-3 py-1 hover:bg-neutral-950  hover:text-white ml-3 rounded-md text-white',
+          confirmButton: 'bg-red-500 px-4 py-2 hover:bg-accent-base hover:text-white mr-3  rounded-md text-black',
+          title: 'text-xl text-white' // Clase personalizada para el título
         },
-      },
-      
-    });
-    link.source(sourceElement);
-    link.target(targetElement);
-   
-    // Añade el enlace al gráfico o papel.
-    link.addTo(graph); // Si estás utilizando un gráfico (graph).
-  
-    var linkTools = new joint.dia.ToolsView({
-      tools: [
-        new joint.linkTools.Vertices(),
-        new joint.linkTools.Segments(),
-        new joint.linkTools.SourceArrowhead(),
-        new joint.linkTools.TargetArrowhead(),
-        new joint.linkTools.SourceAnchor(),
-        new joint.linkTools.TargetAnchor(),
-        new joint.linkTools.Boundary(),
-        new joint.linkTools.Remove({
-          distance: 20,
-          action: function (evt) {
-            Swal.fire({
-              title: `Are you sure you want to delete the connection from ?`,
-              html: `<span style="color: #10FB06;">${link_from}  </span><span style="color: white;">to  </span><span style="color: #10FB06;">${link_to} </span> `,
-              showCancelButton: true,
-              confirmButtonText: "remove",
-              allowOutsideClick: false,
-              background:  '#141414',
-              border: 'solid 2px red',
-              customClass: {
-                container: '#141414',
-                cancelButton: 'bg-neutral-800 px-3 py-1 hover:bg-neutral-950  hover:text-white ml-3 rounded-md text-white',
-                confirmButton: 'bg-red-500 px-3 py-1 hover:bg-red-700 hover:text-white mr-3  rounded-md text-black',
-                title: 'text-xl text-white' // Clase personalizada para el título
-              },
-              buttonsStyling: false
-            }).then((result) => {
-              /* Read more about isConfirmed, isDenied below */
-              if (result.isConfirmed) {
-                this.model.remove();
-            
-                Swal.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'element removed',
-                  showConfirmButton: false,
-                  timer: 1300
-                })
-                selectedElements = [];
-              }
-            });
-          },
-        }),
-      ],
-    });
-
-    var linkView = link.findView(paper);
-
-    linkView.addTools(linkTools);
-
-    paper.on("link:mouseover", function () {
-     linkView.showTools();
+        buttonsStyling: false
       });
-    
+    }else if (sourceElement.attributes.connections.includes(link_to)) {
+      // Verificar si el targetElement ya existe en las conexiones del sourceElement
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        html: `<span class="text-white"> The connection from <span class="text-accent-base"> ${link_from}  </span> to <span class="text-accent-base ">${link_to}</span> already exists.</span> `,
+        showConfirmButton: true,
+        allowOutsideClick: false,
+        background:  '#141414',
+        border: 'solid 2px red',
+        customClass: {
+          container: '#141414',
+          cancelButton: 'bg-neutral-800 px-3 py-1 hover:bg-neutral-950  hover:text-white ml-3 rounded-md text-white',
+          confirmButton: 'bg-red-500 px-3 py-1 hover:bg-red-700 hover:text-white mr-3  rounded-md text-black',
+          title: 'text-xl text-white' // Clase personalizada para el título
+        },
+        buttonsStyling: false
+      });
+    } else {
+      var link = new joint.shapes.standard.Link({
+        attrs: {
+          line: {
+            strokeDasharray: '5 5',
+            strokeDashoffset: 7.5,
+            stroke: "#10FB06",
+            "stroke-width": 2,
+          },
+        },
+      });
+
+      link.source(sourceElement);
+      link.target(targetElement);
+
+      // Añade el enlace al gráfico o papel.
+      link.addTo(graph); // Si estás utilizando un gráfico (graph).
+
+      var linkTools = new joint.dia.ToolsView({
+        tools: [
+          new joint.linkTools.Vertices(),
+          new joint.linkTools.Segments(),
+          new joint.linkTools.SourceArrowhead(),
+          new joint.linkTools.TargetArrowhead(),
+          new joint.linkTools.SourceAnchor(),
+          new joint.linkTools.TargetAnchor(),
+          new joint.linkTools.Boundary(),
+          new joint.linkTools.Remove({
+            distance: 20,
+            action: function (evt) {
+              Swal.fire({
+                title: `Are you sure you want to delete the connection from ?`,
+                html: `<span style="color: #10FB06;">${link_from}  </span><span style="color: white;">to  </span><span style="color: #10FB06;">${link_to} </span> `,
+                showCancelButton: true,
+                confirmButtonText: "remove",
+                allowOutsideClick: false,
+                background:  '#141414',
+                border: 'solid 2px red',
+                customClass: {
+                  container: '#141414',
+                  cancelButton: 'bg-neutral-800 px-3 py-1 hover:bg-neutral-950  hover:text-white ml-3 rounded-md text-white',
+                  confirmButton: 'bg-red-500 px-3 py-1 hover:bg-red-700 hover:text-white mr-3  rounded-md text-black',
+                  title: 'text-xl text-white' // Clase personalizada para el título
+                },
+                buttonsStyling: false
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  this.model.remove();
+
+                  const index = sourceElement.attributes.connections.indexOf(link_to);
+                  if (index !== -1) {
+                    sourceElement.attributes.connections.splice(index, 1);
+                  }
+                 console.log('coneciones de flecha ',  sourceElement.attributes.connections)
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'element removed',
+                    showConfirmButton: false,
+                    timer: 1300
+                  });
+                  selectedElements = [];
+                }
+              });
+            },
+          }),
+        ],
+      });
+
+      var linkView = link.findView(paper);
+
+      linkView.addTools(linkTools);
+
+      paper.on("link:mouseover", function () {
+        linkView.showTools();
+      });
+
       paper.on("link:mouseout", function () {
         linkView.hideTools();
       });
-  
-    
 
-    selectedElements.forEach((element) =>
-      element.findView(paper).unhighlight()
-    );
-    selectedElements = [];
+      selectedElements.forEach((element) =>
+        element.findView(paper).unhighlight()
+      );
+
+      sourceElement.attributes.connections.push(link_to);
+      console.log('Connections ', sourceElement.attributes.connections);
+      console.log('element ', targetElement);
+
+      selectedElements = [];
+    }
+
+
+    
   } else {
     Swal.fire({
       position: "center",
@@ -141,6 +187,7 @@ function createLinkBetweenSelectedElements() {
     });
   }
 }
+
 
 
 var selectedElements = [];
@@ -176,8 +223,10 @@ paper.on("element:pointerclick", function (elementView) {
 });
 
 paper.on("blank:pointerdown", function (evt, x, y) {
+  closeAll_contextMenu();
   isContextmenu = false;
   isPanelmenu = true;
+  console.log(isPanelmenu)
   // Deselecciona todos los elementos al hacer clic en un área en blanco
   selectedElements.forEach(function (selectedElement) {
     var elementView = paper.findViewByModel(selectedElement);
@@ -207,17 +256,17 @@ paper.on("element:contextmenu", function (elementView, event) {
   var element = elementView.model;
   console.log("Elemento clicado:", element);
   if (element.attributes.type === "stage") {
-    openMenucontext(event);
+    openMenucontext_options(event,element);
     isContextMenuOpen = true; // Marcar que el menú está abierto
   } else {
     console.log('no se encontró el elemento');
   }
 
-
-
-
   if (selectedElements.length < 2 && element.attributes.type === "stage") {
     conection_btn.style.display = 'block';
+     
+    
+
     // Si el elemento no está en la lista de seleccionados, agrégalo
     if (!selectedElements.includes(element)) {
       selectedElements.push(element);
@@ -240,13 +289,5 @@ paper.on("element:contextmenu", function (elementView, event) {
     }
   }
 
-
-
-
-
-
 });
 
-function validation_stages_and_groups (){
-  
-}

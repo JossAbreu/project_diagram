@@ -59,8 +59,8 @@ document.addEventListener("keyup", function (e) {
 });
 
 // Función para desactivar el seguimiento de la tecla de espacio
-document.addEventListener("keyup", function (e) {
-  if (e.key === "c") {
+document.addEventListener("keydown", function (e) {
+  if (e.ctrlKey  && e.key === "c") {
     createLinkBetweenSelectedElements();
   }
 });

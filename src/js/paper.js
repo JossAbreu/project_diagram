@@ -124,7 +124,7 @@ function createLinkBetweenSelectedElements() {
               line: {
                 strokeDasharray: "5 5",
                 strokeDashoffset: 7.5,
-                stroke: "#10FB06",
+                stroke: "#22d3ee",
                 "stroke-width": 2,
               },
             },

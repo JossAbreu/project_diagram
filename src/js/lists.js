@@ -590,72 +590,42 @@ function render_multiList() {
   // Muestra el GIF de carga
   const loadingBackdrop = document.getElementById("loadingBackdrop");
   const loadingIndicator = document.getElementById("loadingIndicator");
+
   loadingBackdrop.style.display = "flex";
   loadingIndicator.style.display = "flex";
+  
   // Limpia los contenedores antes de volver a renderizar
   container_stages.innerHTML = "";
   container_groups_panel.innerHTML = "";
   container_users_panel.innerHTML = "";
 
-  // Llama a las funciones de renderizado nuevamente para obtener los datos más recientes
-  $.ajax({
-    url: apiUrl,
-    method: 'GET',
-    success: function(response) {
-      stagesList.splice(0);
-      stagesList.push(...response.slice(0, 10));
+    // Get all IDs in the paper
+    const allIds = findAllIdsInPaper(paper);
 
-      // Get all IDs in the paper
-      const allIds = findAllIdsInPaper(paper);
+    console.log("Todos los IDs en el papel:", allIds);
+    console.log("Todos los IDs stages :", stagesList);
 
-      console.log("Todos los IDs en el papel:", allIds);
-      console.log("Todos los IDs stages :", stagesList);
+    // Filter stages that do not exist in the paper
+    const filteredStages = stagesList.filter((stage) => {
+      return allIds.filter((i) => i.id === stage.id).length === 0;
+    });
 
-      // Filter stages that do not exist in the paper
-      const filteredStages = stagesList.filter((stage) => {
-        return allIds.filter((i) => i.id === stage.id).length === 0;
-      });
-
-      console.log("Lista filtrada de stages:", filteredStages);
+    console.log("Lista filtrada de stages:", filteredStages);
 
       renderStages(filteredStages);
-    },
-    error: function(error) {
-      console.error("Error al obtener la lista de stages:", error);
-    }
-  });
-
-
-  $.ajax({
-  url: apiUrl_groups,
-  method: 'GET',
-  success: function(response) {
-    groupsList_panel.splice(0);
-    groupsList_panel.push(...response);
+  
 
     renderGroups_panel(groupsList_panel);
-  },
-  error: function(error) {
-    console.error("Error al obtener la lista de grupos:", error);
-  }
-});
-
-$.ajax({
-  url: apiUrl_users,
-  method: 'GET',
-  success: function(response) {
-    usersList_panel.splice(0);
-    usersList_panel.push(...response);
 
     renderUsers_panel(usersList_panel);
-  },
-  error: function(error) {
-    console.error("Error al obtener la lista de grupos:", error);
-  }
-});
 
+   setTimeout(() => {
+    loadingBackdrop.style.display = "none";
+    loadingIndicator.style.display = "none";
+   }, 4000);
  
 }
+
 
 
 // search global ids

@@ -591,9 +591,7 @@ function render_multiList() {
   const loadingBackdrop = document.getElementById("loadingBackdrop");
   const loadingIndicator = document.getElementById("loadingIndicator");
 
-  loadingBackdrop.style.display = "flex";
-  loadingIndicator.style.display = "flex";
-  
+
   // Limpia los contenedores antes de volver a renderizar
   container_stages.innerHTML = "";
   container_groups_panel.innerHTML = "";
@@ -618,11 +616,13 @@ function render_multiList() {
     renderGroups_panel(groupsList_panel);
 
     renderUsers_panel(usersList_panel);
-
+    loadingBackdrop.style.display = "flex";
+    loadingIndicator.style.display = "flex";
+    
    setTimeout(() => {
     loadingBackdrop.style.display = "none";
     loadingIndicator.style.display = "none";
-   }, 4000);
+   }, 3000);
  
 }
 

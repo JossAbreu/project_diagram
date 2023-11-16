@@ -1,341 +1,310 @@
-﻿<html
-  xmlns:v="urn:schemas-microsoft-com:vml"
-  xmlns:o="urn:schemas-microsoft-com:office:office"
->
-  <head>
-    <title>Diagram Hytech</title>
+﻿<!DOCTYPE html>
 
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<head>
+  <title>Project Diagram</title>
 
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css"
-    />
-    <link type="text/css" rel="stylesheet" href="./src/css/application.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
-<style>
-  .selected-element {
-  stroke: rgb(165, 4, 4); /* Cambia el color del borde a verde */
-  stroke-width: 2; /* Ancho del borde */
-}
-</style>
-<link rel="icon" href="./src/images/flow-chart.ico" type="image/x-icon">
-  </head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  
 
-  <body id="container">
-    <div
-      class="w-screen h-screen bg-neutral-950 flex justify-center overflow-hidden"
-    >
-    <div id="loadingBackdrop" class="absolute inset-0 bg-black opacity-50" style="display: none;"></div>
-    <div id="loadingIndicator" class="absolute flex items-center justify-center top-[45%]" style="display: none;">
-      <img src="./src//images//Blocks-1s-197px.gif" alt="Cargando..." />
-    </div>
-    
-      <section
-        id="content"
-        class="bg-neutral-900 min-w-full max-h-full grid grid-cols-2-cols-layout-drawer gap-1"
-      >
-   
-        <div
-          id="panel"
-          class="bg-neutral-900 shadow-md grid grid-rows-2-rows-layout-drawer gap-1 py"
-        >
-          <div class="bg-neutral-800 py-3 flex items-center justify-center gap-3">
-            <img
-            src="src/images/flow-chart.png"
-            alt="img_logo_hytech"
-            class="object-fill w-22 h-16"
-          />
-         <h1 class="text-4xl font-bold text-white relative top-3">Diagram <span class="text-accent-base material-symbols-outlined">family_history</span></h1>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.css" />
+
+  <link type="text/css" rel="stylesheet" href="src/css/application.css" />
 
   
-          </div>
-          <div
-            class="bg-neutral-800 px-3 py-2 flex flex-col  gap-2"
-          >
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <!-- Enlace a AnimXYZ (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@animxyz/core">
+
+  <style>
+    .selected-element {
+      stroke: rgb(165, 4, 4);
+      /* Cambia el color del borde a verde */
+      stroke-width: 2;
+      /* Ancho del borde */
+    }
+  </style>
+  <link rel="icon" href="/src/images/flow-chart.ico'" type="image/x-icon">
+</head>
+
+<body id="container">
+
+  <div class="w-screen h-screen bg-slate-950 flex justify-center overflow-hidden">
+    <div id="loadingBackdrop" class="absolute inset-0 bg-black opacity-50" style="display: none;"></div>
+    <div id="loadingIndicator" class="absolute flex items-center justify-center top-[45%]" style="display: none;">
+      <img src="src/images/Blocks-1s-197px.gif" alt="Cargando..." />
+    </div>
+
+    <section id="content" class="bg-slate-900 min-w-full h-full grid grid-cols-2-cols-layout-drawer gap-1">
+
+      <div id="panel" class="bg-slate-900 shadow-md grid grid-rows-2-rows-layout-drawer gap-1 px-1 relative py-2  ">
+        <div class=" py-3 flex items-center justify-center gap-3">
+          <img
+          src="src/images/flow-chart.png"
+          alt="img_logo_hytech"
+          class="object-fill w-22 h-16"
+        />
+       <h1 class="text-4xl font-bold text-white relative top-3">Diagram <span class="text-accent-base material-symbols-outlined">family_history</span></h1>
+
+
+        </div>
+        <div class="bg-slate-900 px-3 py-2 flex flex-col  gap-2">
+
+
+          <div class="w-full h-full gap-2 px-2 ">
+            <div class="flex flex-col rounded-md px-2 select-none relative top-1 gap-2 ">
            
 
-            <div class="w-full h-full gap-2 ">
-              <div
-                class="flex flex-col rounded-md px-2 select-none relative top-1 gap-2 "
-              >
-              <div class="flex justify-between ">
-                <h1 class="text-white text-lg flex text-center items-center gap-3">
-                  Add element
-                  <span class="material-symbols-outlined text-xl text-accent-base">
-                    jump_to_element
-                  </span>
-                </h1>
-                <span onclick="render_multiList()" class="material-symbols-outlined text-xl text-white hover:text-accent-base hover:scale-110 transition easin-in-out cursor-pointer">
-                  cached
-                </span>
-              </div>
+
+              <div id="navigation" class="flex flex-col  items-center relative text-white ">
+
+                <div class="tab  py-2  flex flex-col  w-full gap-2 items-center  ">
+
+                <div  id="search_stages" class="flex focus-within:ring-2 focus-within:ring-accent-base  rounded-md bg-slate-800 w-full">
+                  <i class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10  rounded-l-md ">flag</i>
+
+                    <input id="filterInput_stages" type="text" placeholder="Search stage" class="shadow-sm outline-none text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-transparent  py-1 px-3" oninput="filter_stage()" />
+
+                    <i onclick="render_multiList()" class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10  rounded-r-md ">refresh</i>
+                  </div>
+
+                  <div id="users_list" class="flex w-full gap-2 hidden">
+                  
+
+                  
+                    <select id="tabs_select"  onchange="updateSelect(event.target.value)" class="text-white bg-slate-800  rounded-md px-3 py-2  outline-none">
+           
+                      <option  value="groups" selected  > Groups</option>
+                      <option value="users">Users</option>
+ 
+                    </select>
+
+                    <div id="search_groups" class="flex focus-within:ring-2 focus-within:ring-accent-base rounded-md bg-slate-800">
+                    <i class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-l-md ">groups</i>
+
+                      <input id="filterInput_groups" type="text" placeholder="Search group" class="shadow-sm outline-none  text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full  sm:text-sm h-[40px] bg-transparent py-1 px-3" oninput="filter_groups()" />
+
+                      <i onclick="render_multiList()" class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-r-md ">refresh</i>
+                    </div>
+
+                    <div id="search_users" class="flex focus-within:ring-2 focus-within:ring-accent-base rounded-md bg-slate-800 ">
+                    <i class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-r-md  ">person</i>
+
+                      <input id="filterInput_users" type="text" placeholder="Search User" class="shadow-sm outline-none  text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full  sm:text-sm h-[40px] bg-transparent py-1 px-3" oninput="filter_users()" />
+
+                      <i class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-r-md  ">refresh</i>
+                    </div>
+
+                  </div>
+  
+
+                  <div id="search_tasks"  xyz="fade  duration-10 ease-out-back"   class="flex focus-within:ring-2 focus-within:ring-accent-base  rounded-md hidden bg-slate-800  w-full xyz-in">
+                    
+                  <i class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-l-md  ">settings</i>
+
+                    <input id="filterInput_tasks"  type="text" placeholder="Search task" class="shadow-sm outline-none  text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full  sm:text-sm h-[40px] bg-transparent py-1 px-3" oninput="filter_stage()" />
+
+                    
+                    <i onclick="render_multiList()" class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 rounded-r-md  ">refresh</i>
+                  </div>
                 
 
-                <div
-                  id="navigation"
-                  class="flex flex-col gap-3 items-center relative text-white"
-                >
-              
-                  <div class="tab bg-dark-surface_4 p-2   rounded-md">
-
-                  
-                    <button
-                    id="default_open"
-                    class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black"
-                    data-tab="stages"
-                    onclick="updateTab('stages')"
-                  >
+                  <div class="flex gap-2  w-full py-3 border-t-[1.5px] border-b-[1.5px] border-slate-800">
+                  <button id="default_open" class="tablinks  px-3 py-2 bg-slate-800 font-semibold font-['DM Sans']  w-full hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black" data-tab="stages" onclick="updateTab('stages')">
                     Stages
                   </button>
-                  <button
-                    class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black"
-                    data-tab="groups"
-                    onclick="updateTab('groups')"
-                  >
+                  <button class="tablinks  w-full px-3 py-1 bg-slate-800  hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black" data-tab="users_list" onclick="updateTab('users_list')">
                     User list
                   </button>
-                  <button
-                    class="tablinks px-3 py-1 bg-dark-surface_1 hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black"
-                    data-tab="Task"
-                    onclick="updateTab('Task')"
-                  >
+
+                  <button class="tablinks  w-full px-3 py-1 bg-slate-800  hover:bg-accent-base focus:bg-accent-base rounded-md focus:text-black hover:text-black" data-tab="tasks" onclick="updateTab('tasks')" >
                     Task
                   </button>
-                  
-                  
                   </div>
-                  <!-- Tab content -->
-                  <div
-                    id="stages"
-                    class="hidden max-h-[750px] gap-3  w-full flex flex-col "
-                  >
+                 
 
-                  <div class="flex focus-within:ring-2 focus-within:ring-accent-base  rounded-md">
-                    <input
-                    id="filterInput_stages"
-                    type="text"
-                    placeholder="Search"
-                    class="shadow-sm outline-none rounded-l-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3"
-                    oninput="filter_stage()"
-                  />
-                  
-                  <i
-                  class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 bg-dark-surface_3 rounded-r-md "
-                  >approval</i
-                >
-                  </div>
-                    <div class="flex flex-col gap-3 px-5 overflow-y-auto overflow-x-hidden " id="stagesContainer">
 
-                    </div>
-                  </div>
+                </div>
+                
+                <!-- Tab content -->
+                <div id="stages" class="hidden h-[675px] gap-3 py-2 w-full flex flex-col ">
 
-                  <div id="groups" class="hidden flex flex-col gap-3 w-full h-full " >
-                    <div class="flex w-full gap-2">
-                      <select id="tabs_select" onchange="updateTab(event.target.value)" class="text-white bg-dark-surface_4 tablinks rounded-md px-3 py-2  outline-none">
-                        <option value="groups"  > Groups</option>
-                        <option value="users">Users</option>
-                    
-                      </select>
-                      <div class="flex focus-within:ring-2 focus-within:ring-accent-base rounded-md">
-                        <input
-                        id="filterInput_groups"
-                        type="text"
-                        placeholder="Search group"
-                        class="shadow-sm outline-none rounded-l-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3"
-                        oninput="filter_groups()"
-                      />
-                      
-                      <i
-                      class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 bg-dark-surface_3 rounded-r-md "
-                      >groups</i
-                    >
-                      </div>
-                    </div>
-                    
-
-                    <div class="flex flex-col gap-3   " onclick="active_menu()" id="groupsContainer_panel">
-                    </div>
+                 
+                  <div class="flex flex-col gap-3 px-1 py-2   overflow-y-auto overflow-x-hidden w-[18rem] h-full " id="stagesContainer">
 
                   </div>
+                </div>
 
-                  <div id="users" class="hidden flex flex-col gap-3 w-full h-full " >
-                    <div class="flex gap-2 ">
-                      <select id="tabs_select" onchange="updateTab(event.target.value)" class="text-white bg-dark-surface_4 tablinks rounded-md px-3 py-2 outline-none">
+                <div id="groups" class="hidden h-[675px] gap-3  w-full flex flex-col  ">
+              
+                  <div class="flex flex-col gap-3 px-1 py-2  overflow-y-auto overflow-x-hidden  " onclick="active_menu()" id="groupsContainer_panel">
+                  </div>
 
-                        <option value="users" > Users</option>
-                        <option value="groups"  >Groups</option>
-                  
-                      </select>
-                      <div class="flex focus-within:ring-2 focus-within:ring-accent-base rounded-md">
-                        <input
-                        id="filterInput_users"
-                        type="text"
-                        placeholder="Search User"
-                        class="shadow-sm outline-none rounded-l-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3"
-                        oninput="filter_users()"
-                      />
-                      
-                      <i
-                      class="material-symbols-outlined flex items-center justify-center py-2 px-2 text-xl text-white w-10 bg-dark-surface_3 rounded-r-md "
-                      >person</i
-                    >
-                      </div>
-                    </div>
-                  
-                   
-                  <div class="flex flex-col gap-3   " onclick="active_menu()" id="usersContainer_panel">
+                </div>
+
+                <div id="users" class="hidden flex flex-col gap-3 w-full  h-[675px] relatice ">
+                 
+
+
+                  <div class="flex flex-col gap-3 px-1 py-2 overflow-y-auto overflow-x-hidden  h-[700px] " onclick="active_menu()" id="usersContainer_panel">
                   </div>
 
 
                 </div>
 
-                  <div id="Task" class="hidden">
-                     <div >
-                     </div>
+                <div id="tasks" class="hidden flex flex-col gap-3 w-full  h-[675px] ">
+                
+
+                  <div class="flex flex-col gap-3 px-1 py-2 overflow-y-auto overflow-x-hidden " onclick="active_menu()" id="tasksContainer_panel">
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="bg-neutral-900 grid grid-rows-2-rows-layout-drawer gap-1">
-          <div class="bg-neutral-800 flex items-end justify-between px-8 py-3">
-            <div class="text-white flex gap-2 font-light select-none">
-              <div id="toolbar-container" class="flex gap-3">
-                <button id="zoom-in" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white ">add</button>
-                <button id="zoom-out" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">check_indeterminate_small</button>
-                <button id="fullscreen" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">zoom_out_map</button>
-                <button id="conection_btn" onclick="createLinkBetweenSelectedElements()" class="material-symbols-outlined bg-dark-surface_3 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white hidden">share</button>
+      <div class="bg-slate-900 grid grid-rows-2-rows-layout-drawer gap-1 py-2 h-full ">
+
+        <div class="bg-slate-900 ring-slate-800 flex items-end rounded-l-md justify-between px-8 ring-2 py-3">
+          <div class="text-white flex gap-2 font-light select-none">
+            <div id="toolbar-container" class="flex gap-3">
+              <button id="zoom-in" class="material-symbols-outlined bg-slate-800 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white ">add</button>
+              <button id="zoom-out" class="material-symbols-outlined bg-slate-800 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">check_indeterminate_small</button>
+              <button id="fullscreen" class="material-symbols-outlined bg-slate-800 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white">zoom_out_map</button>
+              <button id="conection_btn" onclick="createLinkBetweenSelectedElements()" class="material-symbols-outlined bg-slate-800 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white ">share</button>
+              <button id="capture_image_button" class="material-symbols-outlined bg-slate-800 px-3 py-1 rounded-md hover:scale-110 transition easin-in-out hover:bg-accent-base hover:text-white ">photo_camera</button>
+            </div>
+
+          </div>
+
+          <div class="flex gap-1 items-end ">
+
+            <div class="flex gap-3 justify-center flex-row-reverse  cursor-pointer  px-2  ">
+
+              <div class="flex items-end">
+                <button class="px-1 bg-slate-800 rounded-md h-8 hover:bg-accent-base hover:scale-105 transition easin-in-out"><span class="material-symbols-outlined  text-3xl text-white cursor-pointer  ">edit_note</span></button>
               </div>
-           
-            </div>
-            <div>
-              <button onclick="show_shortcuts()" class="px-2 py-1 bg-neutral-100 rounded-md hover:bg-accent-base hover:scale-105 transition easin-in-out"><span class="material-symbols-outlined text-xl ">
-                keyboard_alt
-                </span></button>
-            </div>
-          </div>
 
-          <div class="bg-neutral-800 h-[100%] w-[100%] relative p-1 relative">
-            <div
-              id="work_space"
-              class="h-[100%] bg-neutral-900 w-[100%] overflow-hidden"
-            ></div>
+
+              <div class="flex flex-col items-end">
+                <label class="text-sm text-white font-bold flex items-center gap-1">project name <span class="material-symbols-outlined  text-sm text-white cursor-pointer hover:scale-105 transition easin-in-out hover:text-accent-base">draft</span></label>
+
+                <input placeholder="Untitled" class="text-xl bg-slate-800 rounded-md  text-accent-base outline-none bg-slate-700 w-64 text-right px-3 placeholder:text-stone-700 "></input>
+              </div>
+
+
+
+
+
+            </div>
+
+            <button onclick="show_shortcuts()" class="px-2 h-8 py-1 bg-slate-800 rounded-md hover:bg-accent-base  font-light text-white hover:scale-105 transition  easin-in-out"><span class="material-symbols-outlined text-xl font-light ">
+                keyboard_alt
+              </span></button>
+
+            <button id="save_btn" class="px-2 h-8 py-1 bg-slate-800 rounded-md hover:bg-accent-base hover:scale-105 text-white transition easin-in-out"><span class="material-symbols-outlined text-xl ">
+                save
+              </span></button>
+
+            
+
           </div>
-          <div
-          id="contextMenu_options"
-          class="hidden select-none bg-neutral-800 ring-2 gap-4 ring-neutral-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[15rem] "
-        >
+        </div>
+
+        <div class="bg-slate-800 h-[100%] w-[100%] relative p-1 rounded-md">
+          <div id="work_space" class="h-[100%] bg-slate-900 w-[100%] overflow-hidden"></div>
+        </div>
+        
+        <div id="contextMenu_options" class="hidden select-none bg-slate-800 ring-2 gap-4 ring-slate-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[15rem] ">
           <div class="flex flex-col gap-3  text-white w-full ">
             <div class="flex justify-between">
               <div class="flex  ">
                 <h1 class="flex items-center font-normal gap-2"><span class="material-symbols-outlined text-accent-base">lasso_select</span> Select Option</h1>
-                
-              </div>
-              <button
-              onclick="closeMenuContext_options()"
-              class="flex items-center hover:text-accent-base relative right-2 relative "
-            >
-              <span class="material-symbols-outlined text-lg text-red-500 ">cancel</span>
-            </button>
-            </div>
-         
-          <div class="flex flex-col gap-2">
-           
-          
-             <div class="flex flex-col gap-2 ">
-              <button id="button_add_group" class="px-3 py-2 bg-neutral-900 hover:bg-accent-base hover:scale-105 transition easin-in-out flex items-center group justify-between text-white hover:text-black rounded-md gap-2 ">Add group <span class="material-symbols-outlined text-accent-base group-hover:text-black">groups</span></button>
-              <button id="button_add_users" class="px-3 py-2 bg-neutral-900 hover:bg-accent-base hover:scale-105 transition easin-in-out flex items-center group justify-between text-white hover:text-black rounded-md gap-2 ">Add user <span class="material-symbols-outlined text-accent-base group-hover:text-black">person</span></button>
-             </div>
-          </div>
-           
-                   
-          </div>
-        
-        </div>
 
-          <div
-            id="contextMenu_groups"
-            class="hidden select-none bg-neutral-800 ring-2 gap-4 ring-neutral-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[20rem] "
-          >
-            <div class="flex flex-col gap-2 text-white ">
-              <div class="flex justify-between ">
-                <h1 class="flex items-center font-normal gap-2">Add group  <span class="material-symbols-outlined text-accent-base">groups</span> </h1>
-                <button
-                onclick="closeMenuContext_group()"
-                class="flex items-center hover:text-accent-base relative right-2 relative "
-              >
+              </div>
+              <button onclick="closeMenuContext_options()" class="flex items-center hover:text-accent-base relative right-2 relative ">
                 <span class="material-symbols-outlined text-lg text-red-500 ">cancel</span>
               </button>
-              </div>
-            
-              <input
-                      id="filterInput_workspace_groups"
-                      type="text"
-                      placeholder="Search"
-                      class="shadow-sm outline-none rounded-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3 "
-                      oninput="filterItems_contexmenu_groups()"
-                    />
-                    
             </div>
-            <div class="flex flex-col gap-3 px-5 py-2 text-white overflow-x-hidden overflow-y-auto max-h-[18rem] " id="groupsContainer_workspace"></div>
+
+            <div class="flex flex-col gap-2">
+
+
+              <div class="flex flex-col gap-2 ">
+                <button id="button_add_group" class="px-3 py-2 bg-slate-900 hover:bg-accent-base hover:scale-105 transition easin-in-out flex items-center group justify-between text-white hover:text-black rounded-md gap-2 ">Add group <span class="material-symbols-outlined text-accent-base group-hover:text-black">groups</span></button>
+                <button id="button_add_users" class="px-3 py-2 bg-slate-900 hover:bg-accent-base hover:scale-105 transition easin-in-out flex items-center group justify-between text-white hover:text-black rounded-md gap-2 ">Add user <span class="material-symbols-outlined text-accent-base group-hover:text-black">person</span></button>
+              </div>
+            </div>
+
+
           </div>
 
-          <div
-          id="contextMenu_users"
-          class="hidden select-none bg-neutral-800 ring-2 gap-4 ring-neutral-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[20rem] "
-        >
+        </div>
+
+        <div id="contextMenu_groups" class="hidden select-none bg-slate-800 ring-2 gap-4 ring-slate-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[20rem] ">
           <div class="flex flex-col gap-2 text-white ">
             <div class="flex justify-between ">
-              <h1 class="flex items-center font-normal gap-2">Add User  <span class="material-symbols-outlined text-accent-base">person</span> </h1>
-              <button
-              onclick="closeMenuContext_users()"
-              class="flex items-center hover:text-accent-base relative right-2 relative "
-            >
-              <span class="material-symbols-outlined text-lg text-red-500 ">cancel</span>
-            </button>
+              <h1 class="flex items-center font-normal gap-2">Add group <span class="material-symbols-outlined text-accent-base">groups</span> </h1>
+              <button onclick="closeMenuContext_group()" class="flex items-center hover:text-accent-base relative right-2 relative ">
+                <span class="material-symbols-outlined text-lg text-red-500 ">cancel</span>
+              </button>
             </div>
-          
-            <input
-                    id="filterInput_workspace_users"
-                    type="text"
-                    placeholder="Search"
-                    class="shadow-sm outline-none rounded-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3 "
-                    oninput="filterItems_contexmenu_users()"
-                  />
-                  
+
+            <input id="filterInput_workspace_groups" type="text" placeholder="Search" class="shadow-sm outline-none rounded-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3 " oninput="filterItems_contexmenu_groups()" />
+
           </div>
+          <div class="flex flex-col gap-3 px-5 py-2 text-white overflow-x-hidden overflow-y-auto max-h-[18rem] " id="groupsContainer_workspace"></div>
+        </div>
+
+        <div id="contextMenu_users" class="hidden select-none bg-slate-800 ring-2 gap-4 ring-slate-950 rounded-md px-3 py-4 flex flex-col absolute max-h-[25rem] w-[20rem] ">
+          <div class="flex flex-col gap-2 text-white ">
+            <div class="flex justify-between ">
+              <h1 class="flex items-center font-normal gap-2">Add User <span class="material-symbols-outlined text-accent-base">person</span> </h1>
+              <button onclick="closeMenuContext_users()" class="flex items-center hover:text-accent-base relative right-2 relative ">
+                <span class="material-symbols-outlined text-lg text-red-500 ">cancel</span>
+              </button>
+            </div>
+
+            <input id="filterInput_workspace_users" type="text" placeholder="Search" class="shadow-sm outline-none rounded-md text-white border-0 focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm h-[40px] bg-dark-surface_3 py-1 px-3 " oninput="filterItems_contexmenu_users()" />
+
+          </div>
+
           <div class="flex flex-col gap-3 px-5 py-2 text-white overflow-x-hidden overflow-y-auto max-h-[18rem] " id="usersContainer_workspace"></div>
         </div>
-          
-        </div>
-      </section>
-    </div>
 
-  
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.js"></script>
- 
-    <script src="src/js/paper.js"></script>
-    <script src="src/js/tailwind.js"></script>
-    <script src="src/js/toolbar.js"></script>
-    <script src="src/js/drag-and-drop.js"></script>
-    <script src="src/js/tabs.js"></script>
-    <script src="src/js/lists.js"></script>
-    <script src="src/js/context_menu.js"></script>
-    <script src="src/js/main.js"></script>
-  </body>
+      </div>
+    </section>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.1/backbone.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.5/joint.js"></script>
+
+  <script src="src/js/paper.js"></script>
+  <script src="src/js/tailwind.js"></script>
+  <script src="src/js/toolbar.js"></script>
+  <script src="src/js/drag-and-drop.js"></script>
+  <script src="src/js/tabs.js"></script>
+  <script src="src/js/lists.js"></script>
+  <script src="src/js/context_menu.js"></script>
+  <script src="src/js/main.js"></script>
+
+
+
+
+</body>
+
 </html>

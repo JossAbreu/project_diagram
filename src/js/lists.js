@@ -1,24 +1,7 @@
-// const apiUrl = "http://gizmo.local/api/test/stages"; // Reemplaza esto con la URL correcta
-
-// const stagesList = [];
-// loadingBackdrop.style.display = "flex";
-// loadingIndicator.style.display = "flex";
 
 
-// axios
-//   .get(apiUrl)
-//   .then((response) => {
-//     stagesList.splice(0);
-//     // response.data.slice(0, 10);
-//     stagesList.push(...response.data);
-//     renderStages(stagesList);
 
-//   })
-//   .catch((error) => {
-//     console.error("Error al obtener la lista de stages:", error);
-//   });
-
-
+// const apiUrl = "/api/test/stages"; // Replace this with the correct URL
 const stagesList = [
   {id: 1 ,text:"stage 1", type: "stages"},
   {id: 2 ,text:"stage 2", type: "stages"},
@@ -26,49 +9,104 @@ const stagesList = [
   {id: 4 ,text:"stage 4", type: "stages"},
   {id: 5 ,text:"stage 5", type: "stages"},
   {id: 6 ,text:"stage 6", type: "stages"}]
+  
+// loadingBackdrop.style.display = "flex";
+// loadingIndicator.style.display = "flex";
+
+// $.ajax({
+//   url: apiUrl,
+//   method: 'GET',
+//   success: function(response) {
+//     stagesList.splice(0);
+//     stagesList.push(...response);
+
+//     // Get all IDs in the paper
+//     const allIds = findAllIdsInPaper(paper);
+
+//     console.log("Todos los IDs en el papel:", allIds);
+//     console.log("Todos los IDs stages :", stagesList);
+
+//     // Filter stages that do not exist in the paper
+//     const filteredStages = stagesList.filter((stage) => {
+//       return allIds.filter((i) => i.id === stage.id).length === 0;
+//     });
+
+//     console.log("Lista filtrada de stages:", filteredStages);
+
+//     renderStages(filteredStages);
+//   },
+//   error: function(error) {
+//     console.error("Error al obtener la lista de stages:", error);
+//   }
+// });
+
 // Obtener el contenedor donde se agregarán los elementos
 const container_stages = document.getElementById("stagesContainer");
 
 const renderStages = (stagesList) => {
-
   // Crear y agregar los elementos <div> basados en el array
   stagesList.forEach((stage) => {
     const div = document.createElement("div");
     div.id = stage.id;
     div.classList.add(
-      "bg-accent-base",
-      "text-center",
-      "px-10",
-      "py-1",
+      "bg-[#065F46]",
+      "ring-2",
+      "ring-[#064E3B]",
+      "px-2",
+      "w-max",
       "select-none",
       "item",
+      "gap-2",
       "flex",
       "items-center",
-      "justify-center",
+      "justify-start",
       "cursor-pointer",
-      "hover:bg-accent-base",
-      "text-black",
+      "hover:bg-[#064E3B]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
       "transition",
+      "rounded-md",
       "ease-in-out",
-      "hover:text-black",
+      "hover:text-accent-base",
       "ring-2",
-      "ring-dark-surface_4",
-      "text-md",
-      "hover:scale-105"
+      "text-sm",
+      "hover:scale-105",
+      "capitalize"
     );
+
     div.draggable = true;
-    div.textContent = stage.text;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "flag"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono al elemento div
+    div.appendChild(iconElement);
+
+    // Crear un contenedor adicional para el texto
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("truncate");
+    textContainer.style.maxWidth= "9.6rem"; // Ajusta la altura máxima según tus necesidades
+
+    // Crear un elemento <span> para el texto
+    const textElement = document.createElement("span");
+    textElement.textContent = stage.text;
+
+    // Agregar el texto al contenedor
+    textContainer.appendChild(textElement);
+
+    // Agregar el contenedor al elemento div
+    div.appendChild(textContainer);
+
     div.setAttribute(
       "ondragstart",
       `event.dataTransfer.setData('id', '${stage.id}'); event.dataTransfer.setData('text', '${stage.text}'); event.dataTransfer.setData('type', '${stage.type}');event.dataTransfer.setData('location', 'menu')`
     );
-    div.setAttribute(
-      "connections",
-      "[]"
-    );
-   // Agregar el atributo "connections" al elemento div y establecerlo como un arreglo vacío
-
- 
+    div.setAttribute("connections", "[]");
+    div.setAttribute("data-tooltip", "Top directed tooltip");
+    div.setAttribute("data-tooltip-position", "top");
     container_stages.appendChild(div);
     loadingBackdrop.style.display = "none";
     loadingIndicator.style.display = "none";
@@ -76,12 +114,12 @@ const renderStages = (stagesList) => {
 };
 
 
-
+renderStages(stagesList);
 // #############################################################
 
-// const apiUrl_groups = "http://gizmo.local/api/test/groups"; // Reemplaza esto con la URL correcta
+// const apiUrl_groups = "/api/test/groups"; // Reemplaza esto con la URL correcta
 
-// const groupsList = [];
+// // const groupsList = [];
 const groupsList = [
   {id: 1 ,text:"group 1", type: "groups"},
   {id: 2 ,text:"group 2", type: "groups"},
@@ -90,57 +128,85 @@ const groupsList = [
   {id: 5 ,text:"group 5", type: "groups"},
   {id: 6 ,text:"group 6", type: "groups"}]
 
-// axios
-//   .get(apiUrl_groups)
-//   .then((response) => {
+// $.ajax({
+//   url: apiUrl_groups,
+//   method: 'GET',
+//   success: function(response) {
 //     groupsList.splice(0);
-//     // response.data.slice(0, 10)
-//     groupsList.push(...response.data);
+//     groupsList.push(...response);
 
 //     renderGroups(groupsList);
-//   })
-//   .catch((error) => {
+//   },
+//   error: function(error) {
 //     console.error("Error al obtener la lista de grupos:", error);
-//   });
-
-// Obtener el contenedor donde se agregarán los elementos
+//   }
+// });
+// // Obtener el contenedor donde se agregarán los elementos
 
 const container_groups_workspace = document.getElementById(
   "groupsContainer_workspace"
 );
 
 const renderGroups = (groupsList) => {
-   // Eliminar los elementos anteriores de los contenedores
+  // Eliminar los elementos anteriores de los contenedores
 
-   container_groups_workspace.innerHTML = '';
- 
+  container_groups_workspace.innerHTML = "";
+
   // Crear y agregar los elementos <div> basados en el array
   groupsList.forEach((group) => {
     const div = document.createElement("div");
     div.id = group.id;
     div.classList.add(
-      "bg-neutral-900",
-      "text-center",
-      "px-10",
-      "py-1",
-      "item_workspace",
+    
+      "bg-[#881337]",
+      "ring-2",
+      "ring-[#4a044e]",
+      "px-2",
+      "w-max",
       "select-none",
+      "item_workspace",
+      "gap-2",
       "flex",
       "items-center",
-      "justify-center",
+      "justify-start",
       "cursor-pointer",
-      "hover:bg-accent-base",
-      "rounded-xl",
+      "hover:bg-[#4a044e]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
       "transition",
+      "rounded-md",
       "ease-in-out",
-      "hover:text-black",
+      "hover:text-accent-base",
       "ring-2",
-      "ring-dark-surface_4",
-      "text-md",
-      "hover:scale-105"
+      "text-sm",
+      "hover:scale-105",
+      "capitalize"
     );
     div.draggable = true;
-    div.textContent = group.text;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "groups"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono y el texto al elemento div
+    div.appendChild(iconElement);
+     // Crear un contenedor adicional para el texto
+     const textContainer = document.createElement("div");
+     textContainer.classList.add("truncate");
+     textContainer.style.maxWidth= "9.6rem"; // Ajusta la altura máxima según tus necesidades
+ 
+     // Crear un elemento <span> para el texto
+     const textElement = document.createElement("span");
+     textElement.textContent = group.text;
+ 
+     // Agregar el texto al contenedor
+     textContainer.appendChild(textElement);
+ 
+     // Agregar el contenedor al elemento div
+     div.appendChild(textContainer);
+
     div.setAttribute(
       "ondragstart",
       `event.dataTransfer.setData('id', '${group.id}'); event.dataTransfer.setData('text', '${group.text}'); event.dataTransfer.setData('type', '${group.type}')`
@@ -148,12 +214,9 @@ const renderGroups = (groupsList) => {
     container_groups_workspace.appendChild(div);
   });
 };
-
+renderGroups(groupsList);
 // #############################################
 
-
-
-// const groupsList_panel = [];
 const groupsList_panel = [
   {id: 1 ,text:"group 1", type: "groups"},
   {id: 2 ,text:"group 2", type: "groups"},
@@ -162,68 +225,95 @@ const groupsList_panel = [
   {id: 5 ,text:"group 5", type: "groups"},
   {id: 6 ,text:"group 6", type: "groups"}]
 
-// axios
-//   .get(apiUrl_groups)
-//   .then((response) => {
+// $.ajax({
+//   url: apiUrl_groups,
+//   method: 'GET',
+//   success: function(response) {
 //     groupsList_panel.splice(0);
-//     // response.data.slice(0, 10)
-//     groupsList_panel.push(...response.data);
+//     groupsList_panel.push(...response);
 
 //     renderGroups_panel(groupsList_panel);
-//   })
-//   .catch((error) => {
+//   },
+//   error: function(error) {
 //     console.error("Error al obtener la lista de grupos:", error);
-//   });
+//   }
+// });
+
 
 // Obtener el contenedor donde se agregarán los elementos
 const container_groups_panel = document.getElementById("groupsContainer_panel");
 
 const renderGroups_panel = (groupsList_panel) => {
-
- 
   // Crear y agregar los elementos <div> basados en el array
   groupsList_panel.forEach((group) => {
     const div = document.createElement("div");
     div.id = group.id;
     div.classList.add(
-      "bg-neutral-900",
-      "text-center",
-      "px-10",
-      "py-1",
-      "select-none",
-      "flex",
-      "item",
-      "items-center",
-      "justify-center",
-      "cursor-pointer",
-      "hover:bg-accent-base",
-      "rounded-xl",
-      "transition",
-      "ease-in-out",
-      "hover:text-black",
+      
+      "bg-[#881337]",
       "ring-2",
-      "ring-dark-surface_4",
-      "text-md",
-      "hover:scale-105"
+      "ring-[#4a044e]",
+      "px-2",
+      "w-max",
+      "select-none",
+      "item",
+      "gap-2",
+      "flex",
+      "items-center",
+      "justify-start",
+      "cursor-pointer",
+      "hover:bg-[#4a044e]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
+      "transition",
+      "rounded-md",
+      "ease-in-out",
+      "hover:text-accent-base",
+      "ring-2",
+      "text-sm",
+      "hover:scale-105",
+      "capitalize"
+
     );
     div.draggable = true;
-    div.textContent = group.text;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "groups"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono y el texto al elemento div
+    div.appendChild(iconElement);
+
+     // Crear un contenedor adicional para el texto
+     const textContainer = document.createElement("div");
+     textContainer.classList.add("truncate");
+     textContainer.style.maxWidth= "9.6rem"; // Ajusta la altura máxima según tus necesidades
+ 
+     // Crear un elemento <span> para el texto
+     const textElement = document.createElement("span");
+     textElement.textContent = group.text;
+ 
+     // Agregar el texto al contenedor
+     textContainer.appendChild(textElement);
+ 
+     // Agregar el contenedor al elemento div
+     div.appendChild(textContainer);
+
     div.setAttribute(
       "ondragstart",
       `event.dataTransfer.setData('id', '${group.id}'); event.dataTransfer.setData('text', '${group.text}'); event.dataTransfer.setData('type', '${group.type}')`
     );
 
     container_groups_panel.appendChild(div);
-
   });
 };
-
+renderGroups_panel(groupsList_panel);
 // #################################
 
+// const apiUrl_users = "/api/test/users"; // Reemplaza esto con la URL correcta
 
-// const apiUrl_users= "http://gizmo.local/api/test/teams"; // Reemplaza esto con la URL correcta
-
-// const usersList_panel = [];
 const usersList_panel = [
   {id: 1 ,text:"user 1", type: "users"},
   {id: 2 ,text:"user 2", type: "users"},
@@ -232,67 +322,97 @@ const usersList_panel = [
   {id: 5 ,text:"user 5", type: "users"},
   {id: 6 ,text:"user 6", type: "users"}]
 
-// axios
-//   .get(apiUrl_users)
-//   .then((response) => {
+// $.ajax({
+//   url: apiUrl_users,
+//   method: 'GET',
+//   success: function(response) {
 //     usersList_panel.splice(0);
-//     // response.data.slice(0, 10)
-//     usersList_panel.push(...response.data);
+//     usersList_panel.push(...response);
 
 //     renderUsers_panel(usersList_panel);
-//   })
-//   .catch((error) => {
-//     console.error("Error al obtener la lista de users:", error);
-//   });
+//   },
+//   error: function(error) {
+//     console.error("Error al obtener la lista de grupos:", error);
+//   }
+// });
 
 // Obtener el contenedor donde se agregarán los elementos
 const container_users_panel = document.getElementById("usersContainer_panel");
 
 const renderUsers_panel = (usersList_panel) => {
-
- 
   // Crear y agregar los elementos <div> basados en el array
   usersList_panel.forEach((user) => {
+
     const div = document.createElement("div");
     div.id = user.id;
     div.classList.add(
-      "bg-neutral-900",
-      "text-center",
-      "px-10",
+      "bg-[#0C4A6E]",
+      "ring-2",
+      "ring-[#082f49]",
+      "px-2",
       "py-1",
       "select-none",
+      "item",
+      "gap-2",
       "flex",
-      "item-workspace",
       "items-center",
-      "justify-center",
+      "justify-start",
       "cursor-pointer",
-      "hover:bg-accent-base",
-      "rounded-xl",
+      "hover:bg-[#082f49]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
       "transition",
+      "rounded-md",
       "ease-in-out",
-      "hover:text-black",
+      "hover:text-accent-base",
       "ring-2",
-      "ring-dark-surface_4",
-      "text-md",
-      "hover:scale-105"
+      "text-sm",
+      "w-max",
+      "hover:scale-105",
+      "capitalize"
+
+      ///
+
+     
     );
     div.draggable = true;
-    div.textContent = user.text;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "person"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono y el texto al elemento div
+    div.appendChild(iconElement);
+      // Crear un contenedor adicional para el texto
+     const textContainer = document.createElement("div");
+     textContainer.classList.add("truncate");
+     textContainer.style.maxWidth= "9.6rem"; // Ajusta la altura máxima según tus necesidades
+ 
+     // Crear un elemento <span> para el texto
+     const textElement = document.createElement("span");
+     textElement.textContent = user.text;
+ 
+     // Agregar el texto al contenedor
+     textContainer.appendChild(textElement);
+ 
+     // Agregar el contenedor al elemento div
+     div.appendChild(textContainer);
+
+
     div.setAttribute(
       "ondragstart",
       `event.dataTransfer.setData('id', '${user.id}'); event.dataTransfer.setData('text', '${user.text}'); event.dataTransfer.setData('type', '${user.type}')`
     );
 
     container_users_panel.appendChild(div);
-
   });
 };
 
+renderUsers_panel(usersList_panel);
 // ####################################
 
-
-
-// const usersList_workspace = [];
 const usersList_workspace = [
   {id: 1 ,text:"user 1", type: "users"},
   {id: 2 ,text:"user 2", type: "users"},
@@ -301,18 +421,20 @@ const usersList_workspace = [
   {id: 5 ,text:"user 5", type: "users"},
   {id: 6 ,text:"user 6", type: "users"}]
 
-// axios
-//   .get(apiUrl_users)
-//   .then((response) => {
+// $.ajax({
+//   url: apiUrl_users,
+//   method: 'GET',
+//   success: function(response) {
 //     usersList_workspace.splice(0);
-//     // response.data.slice(0, 10)
-//     usersList_workspace.push(...response.data);
+//     usersList_workspace.push(...response);
 
 //     renderUsers(usersList_workspace);
-//   })
-//   .catch((error) => {
+//   },
+//   error: function(error) {
 //     console.error("Error al obtener la lista de grupos:", error);
-//   });
+//   }
+// });
+
 
 // Obtener el contenedor donde se agregarán los elementos
 
@@ -321,37 +443,52 @@ const container_users_workspace = document.getElementById(
 );
 
 const renderUsers = (usersList_workspace) => {
-   // Eliminar los elementos anteriores de los contenedores
+  // Eliminar los elementos anteriores de los contenedores
 
-   container_users_workspace.innerHTML = '';
- 
+  container_users_workspace.innerHTML = "";
+
   // Crear y agregar los elementos <div> basados en el array
   usersList_workspace.forEach((user) => {
     const div = document.createElement("div");
     div.id = user.id;
     div.classList.add(
-      "bg-neutral-900",
-      "text-center",
-      "px-10",
+      "bg-[#0C4A6E]",
+      "ring-2",
+      "ring-[#082f49]",
+      "px-2",
       "py-1",
-      "item_workspace",
       "select-none",
+      "item_workspace",
+      "gap-2",
       "flex",
       "items-center",
-      "justify-center",
+      "justify-start",
       "cursor-pointer",
-      "hover:bg-accent-base",
-      "rounded-xl",
+      "hover:bg-[#082f49]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
       "transition",
+      "rounded-md",
       "ease-in-out",
-      "hover:text-black",
+      "hover:text-accent-base",
       "ring-2",
-      "ring-dark-surface_4",
-      "text-md",
-      "hover:scale-105"
+      "text-sm",
+      "w-max",
+      "hover:scale-105",
+      "capitalize"
     );
     div.draggable = true;
-    div.textContent = user.text;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "person"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono y el texto al elemento div
+    div.appendChild(iconElement);
+    div.appendChild(document.createTextNode(user.text));
+
     div.setAttribute(
       "ondragstart",
       `event.dataTransfer.setData('id', '${user.id}'); event.dataTransfer.setData('text', '${user.text}'); event.dataTransfer.setData('type', '${user.type}')`
@@ -360,8 +497,93 @@ const renderUsers = (usersList_workspace) => {
   });
 };
 
+renderUsers(usersList_workspace);
+// ######################################
 
 
+// const apiUrl_tasks = "/api/test/tasks"; // Reemplaza esto con la URL correcta
+
+const tasksList_panel = [ 
+{id: 1 ,text:"task 1", type: "tasks"},
+{id: 2 ,text:"task 2", type: "tasks"},
+{id: 3 ,text:"task 3", type: "tasks"},
+{id: 4 ,text:"task 4", type: "tasks"},
+{id: 5 ,text:"task 5", type: "tasks"},
+{id: 6 ,text:"task 6", type: "tasks"}];
+
+// $.ajax({
+//   url: apiUrl_tasks,
+//   method: 'GET',
+//   success: function(response) {
+//     tasksList_panel.splice(0);
+//     tasksList_panel.push(...response);
+
+//     renderTasks_panel(tasksList_panel);
+//   },
+//   error: function(error) {
+//     console.error("Error al obtener la lista de grupos:", error);
+//   }
+// });
+
+// Obtener el contenedor donde se agregarán los elementos
+const container_tasks_panel = document.getElementById("tasksContainer_panel");
+
+const renderTasks_panel = (tasksList_panel) => {
+  // Crear y agregar los elementos <div> basados en el array
+  tasksList_panel.forEach((task) => {
+
+    const div = document.createElement("div");
+    div.id = task.id;
+    div.classList.add(
+      "bg-[#854D0E]",
+      "ring-2",
+      "ring-[#713F12]",
+      "px-2",
+      "py-1",
+      "select-none",
+      "item",
+      "gap-2",
+      "flex",
+      "items-center",
+      "justify-start",
+      "cursor-pointer",
+      "hover:bg-[#713F12]",
+      "text-white",
+      "text-start",
+      "min-h-[2.6rem]",
+      "transition",
+      "rounded-md",
+      "ease-in-out",
+      "hover:text-accent-base",
+      "ring-2",
+      "text-sm",
+      "w-max",
+      "hover:scale-105",
+      "capitalize"
+    );
+    div.draggable = true;
+
+    // Crear un elemento <i> para el ícono de Material Design Icons
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("material-symbols-outlined");
+    iconElement.textContent = "settings"; // Reemplaza "insert_icon_here" con el nombre del ícono que desees
+
+    // Agregar el ícono y el texto al elemento div
+    div.appendChild(iconElement);
+    div.appendChild(document.createTextNode(task.text));
+
+
+    div.setAttribute(
+      "ondragstart",
+      `event.dataTransfer.setData('id', '${task.id}'); event.dataTransfer.setData('text', '${task.text}'); event.dataTransfer.setData('type', '${task.type}')`
+    );
+
+    container_tasks_panel.appendChild(div);
+  });
+};
+
+renderTasks_panel(tasksList_panel);
+// ###########################
 
 
 function render_multiList() {
@@ -370,67 +592,93 @@ function render_multiList() {
   const loadingIndicator = document.getElementById("loadingIndicator");
   loadingBackdrop.style.display = "flex";
   loadingIndicator.style.display = "flex";
-  
   // Limpia los contenedores antes de volver a renderizar
-  container_stages.innerHTML = '';
-  container_groups_panel.innerHTML = '';
-  container_users_panel.innerHTML = '';
+  container_stages.innerHTML = "";
+  container_groups_panel.innerHTML = "";
+  container_users_panel.innerHTML = "";
 
-  
+  // Llama a las funciones de renderizado nuevamente para obtener los datos más recientes
+  $.ajax({
+    url: apiUrl,
+    method: 'GET',
+    success: function(response) {
+      stagesList.splice(0);
+      stagesList.push(...response.slice(0, 10));
 
- setTimeout(() => {
-  renderStages(stagesList);
-renderUsers(usersList_workspace);
-renderGroups(groupsList);
-renderGroups_panel(groupsList_panel);
-renderUsers_panel(usersList_panel);
-  loadingBackdrop.style.display = "none";
-    loadingIndicator.style.display = "none";
- }, 2000);
-  // // Llama a las funciones de renderizado nuevamente para obtener los datos más recientes
-  // axios.get(apiUrl)
-  //   .then((response) => {
-  //     stagesList.splice(0);
-  //     stagesList.push(...response.data);
-  //     renderStages(stagesList);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error al obtener la lista de stages:", error);
-  //   });
+      // Get all IDs in the paper
+      const allIds = findAllIdsInPaper(paper);
 
-  // axios.get(apiUrl_groups)
-  //   .then((response) => {
-  //     groupsList_panel.splice(0);
-  //     groupsList_panel.push(...response.data);
-  //     renderGroups_panel(groupsList_panel);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error al obtener la lista de grupos:", error);
-  //   });
+      console.log("Todos los IDs en el papel:", allIds);
+      console.log("Todos los IDs stages :", stagesList);
 
-  // axios.get(apiUrl_users)
-  //   .then((response) => {
-  //     usersList_panel.splice(0);
-  //     usersList_panel.push(...response.data);
-  //     renderUsers_panel(usersList_panel);
+      // Filter stages that do not exist in the paper
+      const filteredStages = stagesList.filter((stage) => {
+        return allIds.filter((i) => i.id === stage.id).length === 0;
+      });
 
-  //     // Oculta el GIF de carga una vez que los datos se hayan cargado y renderizado
-  //     loadingBackdrop.style.display = "none";
-  //     loadingIndicator.style.display = "none";
-    
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error al obtener la lista de users:", error);
+      console.log("Lista filtrada de stages:", filteredStages);
 
-  //     // Asegúrate de ocultar el GIF de carga en caso de error
-  //     loadingBackdrop.style.display = "none";
-  //     loadingIndicator.style.display = "none";
-  //   });
+      renderStages(filteredStages);
+    },
+    error: function(error) {
+      console.error("Error al obtener la lista de stages:", error);
+    }
+  });
+
+
+  $.ajax({
+  url: apiUrl_groups,
+  method: 'GET',
+  success: function(response) {
+    groupsList_panel.splice(0);
+    groupsList_panel.push(...response);
+
+    renderGroups_panel(groupsList_panel);
+  },
+  error: function(error) {
+    console.error("Error al obtener la lista de grupos:", error);
+  }
+});
+
+$.ajax({
+  url: apiUrl_users,
+  method: 'GET',
+  success: function(response) {
+    usersList_panel.splice(0);
+    usersList_panel.push(...response);
+
+    renderUsers_panel(usersList_panel);
+  },
+  error: function(error) {
+    console.error("Error al obtener la lista de grupos:", error);
+  }
+});
+
+ 
 }
 
 
-renderStages(stagesList);
-renderUsers(usersList_workspace);
-renderGroups(groupsList);
-renderGroups_panel(groupsList_panel);
-renderUsers_panel(usersList_panel);
+// search global ids
+function findAllIdsInPaper(paper) {
+  const allIds = [];
+
+  // Obtén todos los IDs de los elementos en el papel
+  paper.model.getElements().forEach(function(element) {
+    // console.log('element for findAllIdsInPaper',element)
+    allIds.push({
+      id: parseInt(element.attributes.id_element)
+    }); // Convierte el ID en cadena y crea un objeto
+  });
+
+  // Obtén todos los IDs de los enlaces en el papel
+  paper.model.getLinks().forEach(function(link) {
+    allIds.push({
+      id: parseInt(link.id_element)
+    }); // Convierte el ID en cadena y crea un objeto
+  });
+
+  return allIds;
+}
+
+
+

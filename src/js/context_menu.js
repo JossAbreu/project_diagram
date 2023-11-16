@@ -30,9 +30,10 @@ console.log('test',element_select)
   // Verificar si el atributo 'connection' del elemento contiene un grupo cuyo texto coincide con algún grupo en 'groupsList'
   if (element_select.attributes.connections) {
     const elementConnections = element_select.attributes.connections;
+    
     const updatedGroupsList = groupsList.filter(group => {
       // Filtrar grupos que no coinciden con ninguna conexión del elemento
-      return !elementConnections.includes(group.text);
+      return !elementConnections.includes(group.id.toString());
     });
 
     // Actualizar la lista de grupos para excluir los grupos coincidentes

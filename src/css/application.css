@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-font-family: Verdana, Geneva, Tahoma, sans-serif, Courier, monospace;
+	font-family:'DM Sans';
 background-color: rgba(255, 255, 255, 0.2);
 
 }
@@ -20,7 +20,7 @@ background-color: rgba(255, 255, 255, 0.2);
 }
 
 .active{
-    background-color: #10FB06 !important;
+    background-color: #22d3ee !important;
     color: black  !important;
 }
 #loadingBackdrop {
